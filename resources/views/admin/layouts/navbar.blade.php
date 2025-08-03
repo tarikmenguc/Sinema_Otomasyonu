@@ -5,7 +5,7 @@
     <a href="{{ route('admin.dashboard') }}">
       <img src="{{ asset('images/logo.png') }}"
            alt="Logo"
-           class="w-12 h-12 object-contain">
+           class="w-16 h-16 object-contain">
     </a>
 
     <ul class="flex space-x-6">
@@ -13,6 +13,7 @@
       <li><a href="{{ route('admin.salon.index') }}"    class="hover:underline">Salon İşlemleri</a></li>
       <li><a href="{{ route('admin.seans.index') }}"    class="hover:underline">Seans İşlemleri</a></li>
       <li><a href="{{ route('admin.bilets.index') }}"   class="hover:underline">Bilet İşlemleri</a></li>
+      <li><a href="{{ route('admin.users.index') }}"   class="hover:underline">Kullanıcı İşlemleri</a></li>
     </ul>
 
     {{-- Çıkış butonu sağa dayandı --}}

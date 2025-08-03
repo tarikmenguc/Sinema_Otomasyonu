@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'omdb' => [
+        'url' => env('OMDB_BASE_URL'),
+        'key' => env('OMDB_API_KEY'),
+    ],
 ];

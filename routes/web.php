@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BiletController;
 use App\Http\Controllers\Admin\FilmController;
 use App\Http\Controllers\Admin\SalonController;
 use App\Http\Controllers\Admin\SeansController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -75,7 +76,11 @@ Route::prefix('admin')
                   Route::post(
                     'seans/{seans}/seat/{seat}/toggle', 
                     [SeansController::class, 'toggleSeat']
-                )->name('seans.seat.toggle');   
+                )->name('seans.seat.toggle');  
+                 Route::get('users', [UserController::class, 'index'])
+             ->name('users.index'); 
+             Route::post('users/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])
+             ->name('users.toggleAdmin');
          });
 
      });
