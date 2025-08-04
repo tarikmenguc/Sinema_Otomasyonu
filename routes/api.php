@@ -45,3 +45,5 @@ Route::post('/biletler', [BiletController::class, 'store']);
 
 
 Route::get('films/{film}/seanslar', [SeansController::class, 'byFilm']);
+
+

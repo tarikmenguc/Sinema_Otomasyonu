@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Film;
 use App\Models\Salon;
 use App\Models\Seans;
+use App\Models\Bilet;
+use App\Models\Koltuk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Types\Relations\Car;
@@ -52,7 +54,10 @@ class SeansController extends Controller
     }
 
     public function show(Seans $seans){
-   $seans->load(["film","salon"]);
+   $seans->load([
+       'film',
+       'salon.koltuks.bilets' 
+    ]);
    return view("admin.seans.show",compact("seans"));
     }
     public function destroy(Seans $seans){
