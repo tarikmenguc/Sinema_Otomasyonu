@@ -46,6 +46,7 @@ Route::prefix('admin')
 
              Route::get('films', [FilmController::class, 'index'])
                   ->name('films.index');
+                  Route::get('films/data', [FilmController::class, 'data'])->name('films.data');
              Route::get('films/{film}', [FilmController::class, 'show'])
                   ->name('films.show');
              Route::delete('films/{film}', [FilmController::class, 'destroy'])

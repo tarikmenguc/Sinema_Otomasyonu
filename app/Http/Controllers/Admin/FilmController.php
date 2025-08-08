@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Film;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Yajra\DataTables\Facades\DataTables;
 
 use function PHPSTORM_META\type;
 
@@ -66,9 +67,31 @@ class FilmController extends Controller
             return redirect()->route('admin.films.index');
         }
 
-     $films = Film::orderBy('created_at', 'desc')->paginate(10);
+     $films = Film::orderBy('created_at', 'desc');
         return view('admin.films.index', compact('films'));
     }
+   public function data(Request $request)
+    {
+        $q = Film::query()->select(['id','title','year','imdb_id','created_at']);
+
+        return DataTables::of($q)
+            ->addIndexColumn()
+            ->editColumn('created_at', fn($f) => optional($f->created_at)->format('d.m.Y H:i'))
+            ->addColumn('actions', function ($f) {
+                $show = route('admin.films.show', $f);
+                $del  = route('admin.films.destroy', $f);
+                return '
+                    <a href="'.$show.'" class="px-2 py-1 text-white bg-blue-600 rounded text-xs">Göster</a>
+                    <form action="'.$del.'" method="POST" style="display:inline" onsubmit="return confirm(\'Silinsin mi?\')">
+                        '.csrf_field().method_field('DELETE').'
+                        <button class="px-2 py-1 text-white bg-red-600 rounded text-xs">Sil</button>
+                    </form>
+                ';
+            })
+            ->rawColumns(['actions']) // HTML kaçışını kapat
+            ->make(true);
+    }
+    
     public function show (Film $film){
     return view("admin.films.show",compact("film"));
     }

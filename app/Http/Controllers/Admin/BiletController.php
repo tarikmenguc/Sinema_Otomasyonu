@@ -18,8 +18,6 @@ class BiletController extends Controller
     }
     public function showbySeans(Seans $seans){
         $biletler = $seans->bilets()->with(['user','koltuk'])->get();
-
-        // Hem seans hem de biletler'i view'a yolla
         return view('admin.bilets.show', compact('seans','biletler'));
     }
     public function toggleStatus(Bilet $bilet){
