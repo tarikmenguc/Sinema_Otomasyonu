@@ -19,12 +19,14 @@ class AuthController extends Controller
             'name'                  => 'required|string|min:2',
             'email'                 => 'required|email|unique:users,email',
             'password'              => 'required|string|min:6',
+            'uye_tipi'   => 'required|in:ogrenci,tam',
         ]);
 
      $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
+            'uye_tipi'  => $data['uye_tipi'],
         ]);
 
          $role = Role::firstOrCreate(['rol' => 'customer']);

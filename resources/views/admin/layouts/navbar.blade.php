@@ -14,6 +14,11 @@
       <li><a href="{{ route('admin.seans.index') }}"    class="hover:underline">Seans İşlemleri</a></li>
       <li><a href="{{ route('admin.bilets.index') }}"   class="hover:underline">Bilet İşlemleri</a></li>
       <li><a href="{{ route('admin.users.index') }}"   class="hover:underline">Kullanıcı İşlemleri</a></li>
+      <li>
+    <a href="{{ route('admin.bilet_fiyatlari.index') }}">
+        🎫 Bilet Fiyatları
+             </a>
+</li>   
     </ul>
 
     {{-- Çıkış butonu sağa dayandı --}}

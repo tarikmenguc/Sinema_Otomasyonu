@@ -50,6 +50,8 @@ Route::prefix('admin')
                   ->name('films.show');
              Route::delete('films/{film}', [FilmController::class, 'destroy'])
                   ->name('films.destroy');
+             
+            Route::put('/admin/salons/{salon}/kapasite', [SalonController::class, 'updateCapacity'])->name('salons.updateCapacity');
 
              Route::get('salons', [SalonController::class, 'index'])
                   ->name('salon.index');
@@ -59,7 +61,7 @@ Route::prefix('admin')
                   ->name('salon.toggle');
              Route::post('salons/{salon}/generate-seats', [SalonController::class, 'generateSeats'])
                   ->name('salons.generateSeats');
-
+             Route::resource('bilet_fiyatlari', \App\Http\Controllers\Admin\BiletFiyatiController::class)->only(['index', 'edit', 'update']);
              Route::get('bilets', [BiletController::class, 'index'])
                   ->name('bilets.index');
                   Route::get('seans/{seans}/bilets', [BiletController::class, 'showbySeans'])

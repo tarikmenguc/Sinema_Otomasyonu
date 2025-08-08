@@ -17,6 +17,9 @@ class Koltuk extends Model
 
 public function biletForSeans(int $seansId)
 {
-    return $this->bilets()->where('seans_id', $seansId)->where('is_active', 1)->first();
+        return $this->bilets()
+        ->where('seans_id', $seansId)
+        ->whereIn('status', ['bekliyor', 'odendi']) 
+        ->first();
 }
 }

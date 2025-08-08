@@ -56,7 +56,7 @@
   <div class="space-y-4">
     <h2 class="text-xl font-semibold">Koltuk Doluluk Durumu</h2>
     <div class="grid grid-cols-6 gap-4">
-      @foreach($seans->salon->koltuks as $koltuk)
+     @foreach($seans->salon->koltuks->where('is_active', true) as $koltuk)
         @php
           // Koltuk modelinizde:
           // public function biletForSeans($seansId) { ... }

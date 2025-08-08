@@ -24,7 +24,7 @@ class SeansController extends Controller
      return view("admin.seans.index",compact("seanslar"));
     }
     public function create(){
-        $filmler=Film::orderBy("title")->pluck("title","id");//frontend için dropdown sağla
+        $filmler=Film::orderBy("title")->pluck("title","id");
         $salonlar=Salon::orderBy("Salon_adi")->pluck("Salon_adi","id");
         return view("admin.seans.create",compact("filmler","salonlar"));
     }
@@ -64,7 +64,7 @@ class SeansController extends Controller
  $seans ->update(["is_active"=>false]);
 return redirect()->route("admin.seans.index")->with("status","seans iptal");
     }
-   
+   /*
     public function toggleSeat(Seans $seans, Koltuk $seat)
 {
     $ticket = $seans->bilets()
@@ -79,9 +79,35 @@ return redirect()->route("admin.seans.index")->with("status","seans iptal");
     ]);
      return back()->with('success', 'Koltuk durumu güncellendi.');
 }
+     */
+    public function toggleSeat(Seans $seans, Koltuk $seat)
+{
+    $ticket = $seans->bilets()
+                    ->where('koltuk_id', $seat->id)
+                    ->first();
+
+    if (! $ticket) {
+        Bilet::create([
+            'seans_id'   => $seans->id,
+            'koltuk_id'  => $seat->id,
+            'is_active'  => true,
+            'status'     => 'bekliyor', 
+            'user_id'    => auth()->id(), 
+            'price'      => 0,        
+            'type'       => 'tam',      
+        ]);
+
+        return back()->with('success', 'Bilet başarıyla oluşturuldu.');
+    }
+    $ticket->update([
+        'is_active' => ! $ticket->is_active,
+    ]);
+
+    return back()->with('success', 'Bilet aktifliği değiştirildi.');
+}
+
 public function showBySeans(Seans $seans)
 {
-    // Seans’a ait aktif ve pasif tüm biletler
     $biletler = Bilet::with(['user','koltuk'])
                      ->where('seans_id', $seans->id)
                      ->orderBy('koltuk_id')

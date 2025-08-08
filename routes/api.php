@@ -6,8 +6,10 @@ use App\Http\Controllers\FilmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmSearchController;
 use App\Http\Controllers\KoltukController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SalonController;
 use App\Http\Controllers\SeansController;
+use App\Http\Controllers\StripeController;
 
 Route::post("/register",[AuthController::class,"register"]);
 Route::post("/login",[AuthController::class,"login"]);//->name('login');
@@ -15,6 +17,7 @@ Route::post("/login",[AuthController::class,"login"]);//->name('login');
 Route::middleware("auth:sanctum")->group(function(){
 Route::post("/logout",[AuthController::class,"logout"]);
 Route::get("/me",[AuthController::class,"me"]);
+Route::post('/payment/register', [PaymentController::class, 'registerAndRedirect']);
 
 });
 Route::get('/films/search', [FilmSearchController::class, 'show']);
@@ -39,11 +42,13 @@ Route::post('reset-password',    [AuthController::class,'resetPassword']);
     Route::delete("biletler/{id}",[BiletController::class,"destroy"]);
     
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::post('/reset-password', [AuthController::class, 'resetPassword']);
-Route::post('/biletler', [BiletController::class, 'store']);
-
-
-
-Route::get('films/{film}/seanslar', [SeansController::class, 'byFilm']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+    Route::post('/biletler', [BiletController::class, 'store']);
+    Route::get('films/{film}/seanslar', [SeansController::class, 'byFilm']);
+    Route::post('/payment/success', [PaymentController::class, 'success']);
+    Route::post('/payment/fail', [PaymentController::class, 'fail']);
+    Route::get('/payment/success', [PaymentController::class, 'success']);
+    Route::get('/payment/fail', [PaymentController::class, 'fail']);
+  
 
 
