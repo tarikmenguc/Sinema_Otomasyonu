@@ -88,7 +88,7 @@ class FilmController extends Controller
                     </form>
                 ';
             })
-            ->rawColumns(['actions']) // HTML kaçışını kapat
+            ->rawColumns(['actions'])
             ->make(true);
     }
     
