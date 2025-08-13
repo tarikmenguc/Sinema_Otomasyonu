@@ -19,7 +19,7 @@ class FilmSearchController extends Controller
        
         $film = Film::where('title', $title)->first();
         if ($film) {
-            return response()->json($film); // 200
+            return response()->json($film);
         }
 
      $search = Http::get(config('services.omdb.url'), [

@@ -6,11 +6,11 @@ use App\Http\Controllers\Admin\FilmController;
 use App\Http\Controllers\Admin\SalonController;
 use App\Http\Controllers\Admin\SeansController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::redirect('/', '/login');
-
 
 Route::get('test', function(){
     return response()->json([
@@ -52,7 +52,7 @@ Route::prefix('admin')
              Route::delete('films/{film}', [FilmController::class, 'destroy'])
                   ->name('films.destroy');
              
-            Route::put('/admin/salons/{salon}/kapasite', [SalonController::class, 'updateCapacity'])->name('salons.updateCapacity');
+            Route::put('/salons/{salon}/kapasite', [SalonController::class, 'updateCapacity'])->name('salons.updateCapacity');
 
              Route::get('salons', [SalonController::class, 'index'])
                   ->name('salon.index');
